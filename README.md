@@ -42,26 +42,27 @@ Welcome.
 
 I might have missed some, probably missed something, explenations are not very detailed but that's why the links are there, get to reading.
 
+------------------------------------------------------------------------------
 
-2. Key mpas
+2. Key maps
 
-1) <F3> - normal mode - TOggles the nvim-tree(file explorer) window.
-2) <F4> - normal mode - opens the copilot window for suggestions 10 suggestions
-3) <leader>? - normal mode - list of recently opened files telescope
-4) <leader><leader> - normal mode - opens telescope for existing buffers
-5) <leader> / -  normal mode - opens current buffer fuzzy search
-6) <leader>sf - normal mode - telescope files in current project
-7) <leader> sh - normal mode - telescope to help search for help tags, it's pretty cool
-8) <leader> sw - normal mode - telescope to look for current word in the project
-9) <leader> sg - normal mode - telescope to look for word accorss project
-10) <leader> sd - normal mode - telescope search for diagnostics
+1) F3 - normal mode - TOggles the nvim-tree(file explorer) window.
+2) F4 - normal mode - opens the copilot window for suggestions 10 suggestions
+3) leader ? - normal mode - list of recently opened files telescope
+4) leader leader - normal mode - opens telescope for existing buffers
+5) leader / -  normal mode - opens current buffer fuzzy search
+6) leader sf - normal mode - telescope files in current project
+7) leader sh - normal mode - telescope to help search for help tags, it's pretty cool
+8) leader sw - normal mode - telescope to look for current word in the project
+9) leader sg - normal mode - telescope to look for word accorss project
+10) leader sd - normal mode - telescope search for diagnostics
 11) [d or ]d - normal mode - previous or next diagnostic message
-12) <leader> e - normal mode - opens a floating diagnostic message
-13) <leader> q - normal mode - opens diagnostic list
+12) leader e - normal mode - opens a floating diagnostic message
+13) leader q - normal mode - opens diagnostic list
 14) ctrl l - insert mode - accepts only one word from copilot suggestion, there are currently 2 versions of the function SuggestOneWord(), one accepts a word until the first sign or space and won't accept the sign or space if it's the next word, the other one accepts the word plus the first sign or space, test both and decide for yourself.
 15) gd - will search whatever word the cursor is on
 
-<leader> is the SPACE button, you can change it if you want inside the config
+leader is the SPACE button, you can change it if you want inside the config
 
 All of the possible combinations of keys will be displayed once you press a button and wait for half a second, I made this with the intention of learning easier, it is pretty useful.
 
