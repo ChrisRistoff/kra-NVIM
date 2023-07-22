@@ -1,6 +1,7 @@
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 
+-- use tab to navigate the completion menu in command mode
 vim.cmd('set wildcharm=<Tab>')
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
@@ -8,11 +9,19 @@ vim.g.mapleader = " "
 
 vim.api.nvim_set_option("clipboard","unnamed")
 vim.o.encoding = "UTF-8"
+
+-- F2 to open chatgpt window, it's really not that useful
 vim.keymap.set("n", "<F2>", ":ChatGPT<CR>", { noremap = true, silent = true })
 
 
+-- set clipboard=unnamedplus " copy paste between vim and everything else
 vim.api.nvim_set_option('clipboard', 'unnamedplus')
 
+-- Map the key combination to move the visual selection one line up with {
+vim.api.nvim_set_keymap('x', '{', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
+
+-- Map the key combination to move the visual selection one line down with }
+vim.api.nvim_set_keymap('x', '}', ":move '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim

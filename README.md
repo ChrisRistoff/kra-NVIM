@@ -62,6 +62,7 @@ I might have missed some, probably missed something, explenations are not very d
 14) ctrl l - insert mode - accepts only one word from copilot suggestion, there are currently 2 versions of the function SuggestOneWord(), one accepts a word until the first sign or space and won't accept the sign or space if it's the next word, the other one accepts the word plus the first sign or space, test both and decide for yourself.
 15) gd - will search whatever word the cursor is on.
 16) shift k - normal mode - provides information and documentation for whatever function/method the cursor is on.
+17) "{" and "}" - move a selected line in visual mode one up({) and one down(})
 
 leader is the SPACE button, you can change it if you want inside the config
 
