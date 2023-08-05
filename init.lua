@@ -1,7 +1,27 @@
+-- indents for different filetypes
+vim.cmd([[autocmd FileType typescript lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType typescriptreact lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType javascript lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType javascriptreact lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType html lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType css lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType scss lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType json lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType yaml lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType markdown lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType lua lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType vim lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType python lua vim.bo.shiftwidth = 4]])
+vim.cmd([[autocmd FileType c lua vim.bo.shiftwidth = 4]])
+vim.cmd([[autocmd FileType cpp lua vim.bo.shiftwidth = 4]])
+vim.cmd([[autocmd FileType yaml lua vim.bo.shiftwidth = 2]])
+vim.cmd([[autocmd FileType prisma lua vim.bo.shiftwidth = 2]])
+
+
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 
--- use tab to navigate the completion menu in command mode
+-- Tab to navigate the completion menu
 vim.cmd('set wildcharm=<Tab>')
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
@@ -9,19 +29,18 @@ vim.g.mapleader = " "
 
 vim.api.nvim_set_option("clipboard","unnamed")
 vim.o.encoding = "UTF-8"
-
--- F2 to open chatgpt window, it's really not that useful
 vim.keymap.set("n", "<F2>", ":ChatGPT<CR>", { noremap = true, silent = true })
 
 
--- set clipboard=unnamedplus " copy paste between vim and everything else
 vim.api.nvim_set_option('clipboard', 'unnamedplus')
 
+
 -- Map the key combination to move the visual selection one line up with {
-vim.api.nvim_set_keymap('x', '{', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', '[', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
 
 -- Map the key combination to move the visual selection one line down with }
-vim.api.nvim_set_keymap('x', '}', ":move '>+1<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', ']', ":move '>+1<CR>gv=gv", { noremap = true, silent = true })
+
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -45,140 +64,19 @@ require("lazy").setup({
 		version = "*",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-    },
+		},
 		config = function()
-			require("nvim-tree").setup({})
+			require("nvim-tree").setup({
+
+		})
 		end,
 	},
-  
-	-- chat gpt plugin
-	{
-	    "jackMort/ChatGPT.nvim",
-		commit = '8820b99c',
-		event = "VeryLazy",
-		config = function()
-	        require("chatgpt").setup(
-			{
-  yank_register = "+",
-  edit_with_instructions = {
-    diff = false,
-    keymaps = {
-      accept = "<C-y>",
-      toggle_diff = "<C-d>",
-      toggle_settings = "<C-o>",
-      cycle_windows = "<Tab>",
-      use_output_as_input = "<C-i>",
-    },
-  },
-  chat = {
-    welcome_message = WELCOME_MESSAGE,
-    loading_text = "Loading, please wait ...",
-    question_sign = "", -- 🙂
-    answer_sign = "ﮧ", -- 🤖
-    max_line_length = 120,
-    sessions_window = {
-      border = {
-        style = "rounded",
-        text = {
-          top = " Sessions ",
-        },
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-      },
-    },
-    keymaps = {
-      close = { "<C-c>" },
-      yank_last = "<C-y>",
-      yank_last_code = "<C-k>",
-      scroll_up = "<C-u>",
-      scroll_down = "<C-d>",
-      toggle_settings = "<C-o>",
-      new_session = "<C-n>",
-      cycle_windows = "<Tab>",
-      select_session = "<Space>",
-      rename_session = "r",
-      delete_session = "d",
-    },
-  },
-  popup_layout = {
-    relative = "editor",
-    position = "50%",
-    size = {
-      height = "80%",
-      width = "80%",
-    },
-  },
-  popup_window = {
-    filetype = "chatgpt",
-    border = {
-      highlight = "FloatBorder",
-      style = "rounded",
-      text = {
-        top = " ChatGPT ",
-      },
-    },
-    win_options = {
-      winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-    },
-  },
-  popup_input = {
-    prompt = "  ",
-    border = {
-      highlight = "FloatBorder",
-      style = "rounded",
-      text = {
-        top_align = "center",
-        top = " Prompt ",
-      },
-    },
-    win_options = {
-      winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-    },
-    submit = "<C-Enter>",
-  },
-  settings_window = {
-    border = {
-      style = "rounded",
-      text = {
-        top = " Settings ",
-      },
-    },
-    win_options = {
-      winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-    },
-  },
-  openai_params = {
-    model = "gpt-3.5-turbo",
-    frequency_penalty = 0,
-    presence_penalty = 0,
-    max_tokens = 300,
-    temperature = 0,
-    top_p = 1,
-    n = 1,
-  },
-  openai_edit_params = {
-    model = "code-davinci-edit-001",
-    temperature = 0,
-    top_p = 1,
-    n = 1,
-  },
-  actions_paths = {},
-  predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
-}
-			)
-		end,
-		dependencies = {
-		    "MunifTanjim/nui.nvim",
-		    "nvim-lua/plenary.nvim",
-		    "nvim-telescope/telescope.nvim",}
-				},
+
+
   -- Git related plugins
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 
-	-- Detect tabstop and shiftwidth automatically
-	"tpope/vim-sleuth",
 
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
@@ -189,7 +87,7 @@ require("lazy").setup({
 
 			-- Useful status updates for LSP
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ "j-hui/fidget.nvim", tag = 'legacy', opts = {} },
+			{"j-hui/fidget.nvim", tag = 'legacy', opts = {} },
 
 			-- Additional lua configuration, makes nvim stuff amazing!
 			"folke/neodev.nvim",
@@ -222,6 +120,7 @@ require("lazy").setup({
 
 	{ -- Theme inspired by Atom
 		"navarasu/onedark.nvim",
+		
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("onedark")
@@ -390,7 +289,7 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
 -- -- -- See `:help nvim-treesitter`
  require("nvim-treesitter.configs").setup({
  	-- Add languages to be installed 
- 	ensure_installed = { "c", "cpp", "lua", "python", "vim", "typescript", "javascript", "html", "css", "json", "yaml" },
+ 	ensure_installed = { "c", "cpp", "lua", "python", "vim", "typescript", "javascript", "html", "css", "json", "yaml", "prisma" },
 
  	-- Autoinstall languages that are not installed. Defaults to false
  	auto_install = false,
@@ -625,4 +524,3 @@ end
 --vim.keymap.set(0, 'i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
 
 vim.api.nvim_set_keymap('i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
-

@@ -10,13 +10,11 @@ Welcome.
 1) lazy. nvim - plugin manager - https://github.com/folke/lazy.nvim
 2) nvim-tree.lua - file explorer - https://github.com/nvim-tree/nvim-tree.lua
 3) nvim-web-devicons - icons for the file explorer - https://github.com/nvim-tree/nvim-web-devicons
-4) ChatGPT.nvim - plugin for integrating ChatGPT - https://github.com/jackMort/ChatGPT.nvim
 5) nui.nvim - UI library for neovim - https://github.com/MunifTanjim/nui.nvim
 6) plenary.nvim - Lua utility functions for neovim plugins(async) - https://github.com/nvim-lua/plenary.nvim
 7) telescope.nvim - highly customizable fzf plugin - https://github.com/nvim-telescope/telescope.nvim
 8) vim-fugitive - git integration - https://github.com/tpope/vim-fugitive
 9) vim-rhubarb - GitHub integration - https://github.com/tpope/vim-rhubarb
-10) vim-sleuth - automatic detection of indent settings(not perfect, might require to reopen a file if created in nvim-tree but works pretty well overall) - https://github.com/tpope/vim-sleuth
 11) nvim-lspconfing - configuration for nvim's built-in LSP - https://github.com/neovim/nvim-lspconfig
 12) mason.nvim - tool for managing external tools used by LSPs - https://github.com/williamboman/mason.nvim
 13) mason-lspconfig.nvim - integration of mason.nvim with nvim-lspconfig - https://github.com/williamboman/mason-lspconfig.nvim
