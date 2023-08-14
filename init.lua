@@ -1,44 +1,23 @@
--- indents for different filetypes
-vim.cmd([[autocmd FileType typescript lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType typescriptreact lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType javascript lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType javascriptreact lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType html lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType css lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType scss lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType json lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType yaml lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType markdown lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType lua lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType vim lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType python lua vim.bo.shiftwidth = 4]])
-vim.cmd([[autocmd FileType c lua vim.bo.shiftwidth = 4]])
-vim.cmd([[autocmd FileType cpp lua vim.bo.shiftwidth = 4]])
-vim.cmd([[autocmd FileType yaml lua vim.bo.shiftwidth = 2]])
-vim.cmd([[autocmd FileType prisma lua vim.bo.shiftwidth = 2]])
-
-
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 
 -- Tab to navigate the completion menu
 vim.cmd('set wildcharm=<Tab>')
 
+
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = " "
 
-vim.api.nvim_set_option("clipboard","unnamed")
+-- copy to clipboard in visual and copy the whole line in normal mode
+vim.api.nvim_set_keymap('v', 'Y', '"+y', { noremap = true })
+vim.api.nvim_set_keymap('n', 'Y', '"+yy', { noremap = true })
+
 vim.o.encoding = "UTF-8"
-vim.keymap.set("n", "<F2>", ":ChatGPT<CR>", { noremap = true, silent = true })
 
-
-vim.api.nvim_set_option('clipboard', 'unnamedplus')
-
-
--- Map the key combination to move the visual selection one line up with {
+-- Map the key combination to move the visual selection one line up with [
 vim.api.nvim_set_keymap('x', '[', ":move '<-2<CR>gv=gv", { noremap = true, silent = true })
 
--- Map the key combination to move the visual selection one line down with }
+-- Map the key combination to move the visual selection one line down with ]
 vim.api.nvim_set_keymap('x', ']', ":move '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 
@@ -72,6 +51,9 @@ require("lazy").setup({
 		end,
 	},
 
+  -- editorconfig
+	"editorconfig/editorconfig-vim",
+
 
   -- Git related plugins
 	"tpope/vim-fugitive",
@@ -100,7 +82,7 @@ require("lazy").setup({
 	},
 
 	--debugger
-	{'puremourning/vimspector'},
+	-- {'puremourning/vimspector'},
 
 	-- Useful plugin to show you pending keybinds.
 	{ "folke/which-key.nvim", opts = {} },
@@ -119,11 +101,13 @@ require("lazy").setup({
 	},
 
 	{ -- Theme inspired by Atom
-		"navarasu/onedark.nvim",
+		-- "navarasu/onedark.nvim",
+		-- "ellisonleao/gruvbox.nvim",
+		"oxfist/night-owl.nvim",
 		
 		priority = 1000,
 		config = function()
-			vim.cmd.colorscheme("onedark")
+			vim.cmd.colorscheme("night-owl")
 		end,
 	},
 
@@ -198,10 +182,6 @@ vim.wo.number = true
 
 -- Enable mouse mode
 vim.o.mouse = "a"
-
--- Sync clipboard between OS and Neovim.
---  See `:help 'clipboard'`
-vim.o.clipboard = "unnamedplus"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -289,12 +269,12 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
 -- -- -- See `:help nvim-treesitter`
  require("nvim-treesitter.configs").setup({
  	-- Add languages to be installed 
- 	ensure_installed = { "c", "cpp", "lua", "python", "vim", "typescript", "javascript", "html", "css", "json", "yaml", "prisma" },
+ 	ensure_installed = { "c", "cpp", "javascript", "typescript", "lua", "python", "vim", "html", "css", "json", "yaml", "prisma" },
 
- 	-- Autoinstall languages that are not installed. Defaults to false
- 	auto_install = false,
+	-- Autoinstall languages that are not installed. Defaults to false
+ 	auto_install = true,
 
- 	highlight = { enable = true },
+ 	highlight = { enable = true},
  	indent = { enable = true, disable = { "python" } },
  	incremental_selection = {
  		enable = true,
@@ -304,7 +284,7 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
  			scope_incremental = "<c-s>",
  			node_decremental = "<M-space>",
  		},
- 	},
+	},
  	textobjects = {
  		select = {
  			enable = true,
@@ -402,9 +382,9 @@ end
 local servers = {
 	-- clangd = {},
 	-- gopls = {},
-	pyright = {},
+	-- pyright = {},
 	-- rust_analyzer = {},
-	tsserver = {},
+	-- tsserver = {},
 
 	--lua_ls = {
 	--	Lua = {
