@@ -384,7 +384,7 @@ local servers = {
 	-- gopls = {},
 	-- pyright = {},
 	-- rust_analyzer = {},
-	-- tsserver = {},
+	tsserver = {},
 
 	--lua_ls = {
 	--	Lua = {
@@ -481,7 +481,7 @@ function _G.SuggestOneWord()
     end
 end
  ]]
-
+--[[ 
 function _G.SuggestOneWord()
     local suggestion = vim.fn["copilot#Accept"]("")
     local bar = vim.fn["copilot#TextQueuedForInsertion"]()
@@ -498,9 +498,10 @@ function _G.SuggestOneWord()
 
     return combined
 end
-
+ ]]
 
 -- keybindings for SuggestOneWord() function above
 --vim.keymap.set(0, 'i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
+-- vim.api.nvim_set_keymap('i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
 
-vim.api.nvim_set_keymap('i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
+vim.cmd('source /home/krasyo/.config/nvim/copilot.vim')
