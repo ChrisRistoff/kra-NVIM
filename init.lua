@@ -38,6 +38,46 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
+	{ -- Friendly Snippets:
+        "rafamadriz/friendly-snippets",
+        after = "L3MON4D3/LuaSnip",  -- Ensure LuaSnip is loaded before
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+    	},
+
+	-- autoclose brackets
+	{ 'm4xshen/autoclose.nvim',
+		config = function()
+			require("autoclose").setup({
+				keys = {
+      					["("] = { escape = false, close = true, pair = "()" },
+      					["["] = { escape = false, close = true, pair = "[]" },
+      					["{"] = { escape = false, close = true, pair = "{}" },
+
+      					[">"] = { escape = true, close = false, pair = "<>" },
+      					[")"] = { escape = true, close = false, pair = "()" },
+      					["]"] = { escape = true, close = false, pair = "[]" },
+      					["}"] = { escape = true, close = false, pair = "{}" },
+
+      					['"'] = { escape = true, close = true, pair = '""' },
+      					["'"] = { escape = true, close = true, pair = "''" },
+      					["`"] = { escape = true, close = true, pair = "``" },
+   				},
+   				options = {
+      					disabled_filetypes = { "text" },
+      					disable_when_touch = false,
+      					touch_regex = "[%w(%[{]",
+      					pair_spaces = false,
+      					auto_indent = true,
+      					disable_command_mode = false,
+   				},
+			})
+			end,
+
+
+	},
+
 	{ -- nvim-tree:
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
@@ -76,7 +116,7 @@ require("lazy").setup({
 		},
 	},
 
-	{ -- Autocompletion
+ 	{ -- Autocompletion
 		"hrsh7th/nvim-cmp",
 		dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
 	},
@@ -159,7 +199,7 @@ require("lazy").setup({
 	},
 -- copilot
 
-  {'github/copilot.vim'},
+  -- {'github/copilot.vim'},
 
   -- require 'kickstart.plugins.autoformat',
 	--require 'kickstart.plugins.debug',
@@ -466,6 +506,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
 
 -- Copilot only one word at a time in insert mode
 --[[ 
