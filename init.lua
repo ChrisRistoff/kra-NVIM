@@ -36,15 +36,67 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+--dap shortcutes
+vim.api.nvim_set_keymap('n', '<leader>bp', ':lua require"dap".toggle_breakpoint()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dsi', ':lua require"dap".step_over()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dc', ':lua require"dap".continue()', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>di', ':lua require"dap".repl.open()', { noremap = true, silent = true })
+
+-- jester shortcutes
+vim.api.nvim_set_keymap('n', '<leader>rt', ':lua require"jester".run()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>rf', ':lua require"jester".run_file()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>rl', ':lua require"jester".run_last()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dt', ':lua require"jester".debug()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>df', ':lua require"jester".debug_file()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dl', ':lua require"jester".debug_last()<CR>', { noremap = true, silent = true })
+
+
 require("lazy").setup({
+
+	{
+    	'mfussenegger/nvim-dap',
+    	config = function()
+      	local dap = require('dap')
+
+	dap.adapters.node2 = {
+  		type = 'executable',
+  		command = 'node-debug2-adapter',
+  		args = {},
+	}
+
+    	end,
+  	},
+
+
+	-- jester
+	'David-Kunz/jester', 
+
 
 	{ -- Friendly Snippets:
         "rafamadriz/friendly-snippets",
         after = "L3MON4D3/LuaSnip",  -- Ensure LuaSnip is loaded before
         config = function()
+            local ls = require("luasnip")
+
+            -- Extend 'typescript' and 'typescriptreact' filetypes to include 'javascript' and 'javascriptreact' snippets respectively
+            ls.filetype_extend("typescript", { "javascript" })
+            ls.filetype_extend("typescriptreact", { "javascriptreact", "typescript", "javascript" })
+
+            -- Continue with lazy loading of VSCode snippets
             require("luasnip.loaders.from_vscode").lazy_load()
         end,
     	},
+
+--[[ 
+	{
+        -- vim-snippets:
+        "honza/vim-snippets",
+        after = "L3MON4D3/LuaSnip",  -- Ensure LuaSnip is loaded before
+        config = function()
+            require("luasnip.loaders.from_snipmate").lazy_load()  -- Load SnipMate-style snippets
+        end,
+    	},
+ ]]
 
 	-- autoclose brackets
 	{ 'm4xshen/autoclose.nvim',
@@ -78,6 +130,7 @@ require("lazy").setup({
 
 	},
 
+
 	{ -- nvim-tree:
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
@@ -91,11 +144,12 @@ require("lazy").setup({
 		end,
 	},
 
-  -- editorconfig
+
+  	-- editorconfig
 	"editorconfig/editorconfig-vim",
 
 
-  -- Git related plugins
+  	-- Git related plugins
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 
@@ -116,13 +170,12 @@ require("lazy").setup({
 		},
 	},
 
+
  	{ -- Autocompletion
 		"hrsh7th/nvim-cmp",
 		dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
 	},
 
-	--debugger
-	-- {'puremourning/vimspector'},
 
 	-- Useful plugin to show you pending keybinds.
 	{ "folke/which-key.nvim", opts = {} },
@@ -140,6 +193,7 @@ require("lazy").setup({
 		},
 	},
 
+
 	{ -- Theme inspired by Atom
 		-- "navarasu/onedark.nvim",
 		-- "ellisonleao/gruvbox.nvim",
@@ -150,6 +204,7 @@ require("lazy").setup({
 			vim.cmd.colorscheme("night-owl")
 		end,
 	},
+
 
 	{ -- Set lualine as statusline
 		"nvim-lualine/lualine.nvim",
@@ -163,6 +218,8 @@ require("lazy").setup({
 			},
 		},
 	},
+
+
  	{ -- Add indentation guides even on blank lines
 		"lukas-reineke/indent-blankline.nvim",
 		-- Enable `lukas-reineke/indent-blankline.nvim`
@@ -173,11 +230,14 @@ require("lazy").setup({
 		},
 	},
 
+
 	-- "gc" to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {} },
 
+
 	-- Fuzzy Finder (files, lsp, etc)
 	{ "nvim-telescope/telescope.nvim", version = "*", dependencies = { "nvim-lua/plenary.nvim" } },
+
 
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
@@ -188,6 +248,7 @@ require("lazy").setup({
 		end,
 	},
 
+
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
@@ -197,18 +258,20 @@ require("lazy").setup({
 			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 		end,
 	},
--- copilot
 
-  -- {'github/copilot.vim'},
 
-  -- require 'kickstart.plugins.autoformat',
+	-- copilot
+  	-- {'github/copilot.vim'},
+
+  	-- require 'kickstart.plugins.autoformat',
 	--require 'kickstart.plugins.debug',
 
 	-- NOTE: The import below automatically adds our own plugins and configuration from `lua/custom/plugins/*.lua`
 	--    We can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
 
 	--{ import = 'custom.plugins' },
-}, {})
+	}, {})
+
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -482,7 +545,7 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Alt>'] = cmp.mapping(function(fallback)
+    ['<A-e>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -491,7 +554,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Alt>'] = cmp.mapping(function(fallback)
+    ['<A-q>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -506,43 +569,5 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
-
-
--- Copilot only one word at a time in insert mode
---[[ 
-function _G.SuggestOneWord()
-    local suggestion = vim.fn["copilot#Accept"]("")
-    local bar = vim.fn["copilot#TextQueuedForInsertion"]()
-    local word = string.match(bar, "[%w_]+")
-    local nc = string.sub(bar, string.len(word) + 1, string.len(word) + 1)
-    if nc == " " or nc == "." or nc == "[" or nc == "]" or nc == "=" or nc == "'" or nc == "(" or nc == ")" then
-        return word .. nc
-    else
-        return word
-    end
-end
- ]]
---[[ 
-function _G.SuggestOneWord()
-    local suggestion = vim.fn["copilot#Accept"]("")
-    local bar = vim.fn["copilot#TextQueuedForInsertion"]()
-    local word = string.match(bar, "[%w_]+") or ""
-    local symbol = string.match(bar, "[%p%s]+", string.len(word) + 1) or ""
-    local combined = word .. symbol
-
-    -- Check if the string after the word contains a word character
-    local nextWordCharacter = string.match(symbol, "[%w_]")
-    if nextWordCharacter then
-        -- If it does, truncate the symbols to the first word character
-        combined = string.match(combined, ".*[%w_]")
-    end
-
-    return combined
-end
- ]]
-
--- keybindings for SuggestOneWord() function above
---vim.keymap.set(0, 'i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
--- vim.api.nvim_set_keymap('i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
 
 vim.cmd('source /home/krasyo/.config/nvim/copilot.vim')
